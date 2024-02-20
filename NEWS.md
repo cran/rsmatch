@@ -1,3 +1,8 @@
+# rsmatch 0.2.1
+
+* `brsmatch()` and `coxpsmatch()` now handle NA rows via removing them (#16)
+* Fix `brsmatch()` to iteratively reduce the number of pairs if too many are specified (#11)
+
 # rsmatch 0.2.0
 
 * Initial CRAN submission.

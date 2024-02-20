@@ -4,8 +4,9 @@
 # rsmatch
 
 <!-- badges: start -->
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/rsmatch)](https://CRAN.R-project.org/package=rsmatch) -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rsmatch)](https://CRAN.R-project.org/package=rsmatch)
 [![R-CMD-check](https://github.com/skent259/rsmatch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/skent259/rsmatch/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -22,7 +23,7 @@ Currently, we have methods for:
 - **Balanced Risk Set Matching** with `brsmatch()`, based on the work of
   Li, Propert, and Rosenbaum (2001)
 - **Propensity Score Matching with Time-Dependent Covariates** with
-  `coxph_match()`, based on the work of Lu (2005)
+  `coxpsmatch()`, based on the work of Lu (2005)
 
 ## Installation
 
@@ -119,9 +120,9 @@ covariates.
 
 To cite package ‘rsmatch’ in publications use:
 
-Kent S, Paukner M (2023). *rsmatch: Matching Methods for Time-varying
-Observational Studies*. R package version 0.1.0,
-<https://github.com/skent259/rsmatch>.
+Kent S, Paukner M (2024). *rsmatch: Matching Methods for Time-varying
+Observational Studies*. R package version 0.2.1,
+<https://cran.r-project.org/package=rsmatch>.
 
 A BibTeX entry for LaTeX users is
 
@@ -129,9 +130,9 @@ A BibTeX entry for LaTeX users is
 @Manual{,
   title = {rsmatch: Matching Methods for Time-varying Observational Studies},
   author = {Sean Kent and Mitchell Paukner},
-  year = {2023},
-  note = {R package version 0.1.0},
-  url = {https://github.com/skent259/rsmatch},
+  year = {2024},
+  note = {R package version 0.2.1},
+  url = {https://cran.r-project.org/package=rsmatch},
 }
 ```
 

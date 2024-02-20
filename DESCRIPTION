@@ -1,6 +1,6 @@
 Package: rsmatch
 Title: Matching Methods for Time-Varying Observational Studies
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person("Sean", "Kent", , "skent259@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-8697-9069")),
@@ -19,7 +19,8 @@ Description: Implements popular methods for matching in time-varying
     speed; the 'gurobi' R package and associated software can be
     downloaded from <https://www.gurobi.com> after obtaining a license.
 License: MIT + file LICENSE
-URL: https://github.com/skent259/rsmatch
+URL: https://skent259.github.io/rsmatch/,
+        https://github.com/skent259/rsmatch
 BugReports: https://github.com/skent259/rsmatch/issues
 Depends: R (>= 2.10)
 Imports: dplyr, MASS, Matrix, stats
@@ -30,9 +31,9 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2023-06-28 03:17:45 UTC; seankent
+Packaged: 2024-02-20 20:45:56 UTC; seankent
 Author: Sean Kent [aut, cre, cph] (<https://orcid.org/0000-0001-8697-9069>),
   Mitchell Paukner [aut, cph] (<https://orcid.org/0000-0003-3839-5311>)
 Maintainer: Sean Kent <skent259@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-06-29 14:40:02 UTC
+Date/Publication: 2024-02-20 22:50:02 UTC

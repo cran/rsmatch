@@ -402,3 +402,89 @@ test_that("`brsmatch()` works for different input values.", {
     options = list(time_lag = TRUE)
   )
 })
+
+
+test_that("brsmatch works when some input are NA", {
+  df1 <- data.frame(
+    id = rep(1:3, each = 3),
+    time = rep(1:3, 3),
+    trt_time = rep(c(2, 3, NA), each = 3),
+    X1 = c(2, 2, 2, 3, 3, 3, 9, 9, 9),
+    X2 = rep(c("a", "a", "b"), each = 3),
+    X3 = c(9, 4, 5, 6, 7, 2, 3, 4, 8),
+    X4 = c(8, 9, 4, 5, 6, 7, 2, 3, 4)
+  )
+
+  check_for_glpk()
+  pairs1 <- brsmatch(n_pairs = 1, data = df1)
+
+  expect_equal(nrow(pairs1), length(unique(df1$id)))
+
+  # Check when trt type "all" is removed"
+  df2 <- df1
+  df2$X3[5:6] <- NA
+
+  pairs2 <- brsmatch(n_pairs = 1, data = df2) %>%
+    expect_warning("should not have NA")
+
+  expect_equal(nrow(pairs2), length(unique(df1$id)))
+
+  # Check when trt type "trt" is removed"
+  df3 <- df1
+  df3$X1[1:3] <- NA
+
+  pairs3 <- brsmatch(n_pairs = 1, data = df3) %>%
+    expect_warning("should not have NA")
+
+  expect_equal(nrow(pairs3), length(unique(df1$id)))
+
+  # NOTE: this still isn't graceful if the NA removes too many rows, but we
+  # can't hold everyone's hand all the time...
+})
+
+
+test_that("brsmatch works when too many pairs specified (#11)", {
+  brsmatch_on_oasis <- function(n_pairs, ...) {
+    brsmatch(
+      n_pairs, oasis,
+      id = "subject_id", time = "visit", trt_time = "time_of_ad",
+      ...
+    )
+  }
+
+  check_for_glpk()
+
+  # With `balance = FALSE`
+  too_many <- brsmatch_on_oasis(n_pairs = 14, balance = FALSE) %>%
+    expect_warning("Number of pairs reduced")
+  enough <- brsmatch_on_oasis(n_pairs = 13, balance = FALSE)
+  expect_equal(too_many, enough)
+
+  # Way too many pairs
+  way_too_many <- brsmatch_on_oasis(n_pairs = 55, balance = FALSE) %>%
+    expect_warning("Number of pairs reduced")
+  expect_equal(way_too_many, too_many)
+
+  # With `balance = TRUE`
+  too_many <- brsmatch_on_oasis(n_pairs = 14, balance = TRUE) %>%
+    expect_warning("Number of pairs reduced")
+  enough <- brsmatch_on_oasis(n_pairs = 13, balance = TRUE)
+  expect_equal(too_many, enough)
+
+  # With `exact_match` variable
+  too_many <- brsmatch_on_oasis(n_pairs = 14, balance = FALSE, exact_match = c("m_f")) %>%
+    expect_warning("Number of pairs reduced")
+  enough <- brsmatch_on_oasis(n_pairs = 13, balance = FALSE, exact_match = c("m_f"))
+  expect_equal(too_many, enough)
+  # The warning message isn't ideal, but its okay for now
+
+
+  # With gurobi
+  check_for_gurobi()
+
+  too_many <- brsmatch_on_oasis(n_pairs = 14, balance = FALSE, options = list(optimizer = "gurobi")) %>%
+    expect_warning("Number of pairs reduced")
+  enough <- brsmatch_on_oasis(n_pairs = 13, balance = FALSE, options = list(optimizer = "gurobi"))
+  expect_equal(too_many, enough)
+
+})
